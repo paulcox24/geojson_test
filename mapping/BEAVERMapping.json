@@ -1,10 +1,10 @@
 {"GEO_IDS":["BV01","BV02","BV03","BV04","GR","GR01","ML01","ML02","ML03","MV01"],
 "MAPPING":{
-  "BEAVER #1":"",
-  "BEAVER #2":"",
-  "BEAVER #3":"",
-  "GREENVILLE":"",
-  "MILFORD #1":"",
-  "MILFORD #2":"",
-  "MINERSVILLE":""
+  "BEAVER #1":"BV01",
+  "BEAVER #2":"BV02",
+  "BEAVER #3":"BV03",
+  "GREENVILLE":"GR01",
+  "MILFORD #1":"ML01",
+  "MILFORD #2":"ML02",
+  "MINERSVILLE":"MV01"
 }}
