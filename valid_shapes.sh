@@ -5,5 +5,7 @@ for f in dissolvedShapes/20**/*Dissolve.geojson
 do
   filename="${f%.*}"
   echo "Cleaning up shapes for - $filename"
-  ogr2ogr -f GeoJSON -Lco COORDINATE_PRECISION=12 "$filename"clean.geojson "$filename".geojson -dialect sqlite -sql "SELECT PrecinctID, CountyID, ST_MakeValid(geometry) as geometry FROM OGRGeoJSON"
+  ogr2ogr -f GeoJSON -Lco COORDINATE_PRECISION=12 "$filename"simple.geojson "$filename".geojson
+  ogr2ogr -f GeoJSON -Lco COORDINATE_PRECISION=12 "$filename"clean.geojson "$filename"simple.geojson -dialect sqlite -sql "SELECT PrecinctID, CountyID, ST_MakeValid(geometry) as geometry FROM OGRGeoJSON"
+  rm "$filename"simple.geojson
 done
