@@ -7,3 +7,4 @@ do
   echo "Dissolving shapes for - $filename"
   ogr2ogr -f GeoJSON "$filename"Dissolve.geojson "$filename".geojson -dialect sqlite -sql "SELECT PrecinctID as PrecinctID, ST_Union(geometry) as geometry, CountyID as CountyID FROM OGRGeoJSON GROUP BY PrecinctID"
 done
+
