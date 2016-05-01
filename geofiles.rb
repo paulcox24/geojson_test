@@ -53,6 +53,7 @@ def get_geo_ids
     county = @county_code[county_id]
     @all_ids[county] |= json.map{|f| f['properties']['PrecinctID']}
   end
+  @all_ids.each{|k,v| v.sort!}
   File.open("geo_ids.json", "w") do |f|
       f.write(@all_ids.to_json)
   end
