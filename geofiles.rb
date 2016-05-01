@@ -50,7 +50,7 @@ def get_geo_ids
   files.each do |file|
     json = JSON.parse(File.read(file))['features']
     county_id = json.first['properties']['CountyID']
-    county = @county_code[county_id]
+    county = @county_code[county_id].upcase
     @all_ids[county] |= json.map{|f| f['properties']['PrecinctID']}
   end
   @all_ids.each{|k,v| v.sort!}
