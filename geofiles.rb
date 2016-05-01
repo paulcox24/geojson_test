@@ -43,3 +43,36 @@ def county_files(file, year)
     end
   end
 end
+
+def get_geo_ids
+  @all_ids = Hash.new([])
+  files = Dir.glob("cleaned/**/*clean.geojson")
+  files.each do |file|
+    json = JSON.parse(File.read(file))['features']
+    county_id = json.first['properties']['CountyID']
+    county = @county_code[county_id]
+    @all_ids[county] |= json.map{|f| f['properties']['PrecinctID']}
+  end
+  File.open("geo_ids.json", "w") do |f|
+      f.write(@all_ids.to_json)
+  end
+end
+
+def ids_from_mapping
+  @all_ids = Hash.new([])
+  files = Dir.glob("mapping/*Mapping.json")
+  files.each do |file|
+    county = File.basename(file, ".json").gsub("Mapping","")
+    @all_ids[county] = JSON.parse(File.read(file))['MAPPING'].values.uniq
+  end
+  File.open("mapping_ids.json", "w") do |f|
+      f.write(@all_ids.to_json)
+  end
+end
+
+def geo_diff_mapping(geo,mapp)
+  bad = Hash.new([])
+  geo.each{|g,v| bad ||= (v - mapp[g]) }
+  mapp.each{|m,v| bad ||= (m - geo[m]) }
+  bad
+end
